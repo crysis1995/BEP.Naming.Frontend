@@ -1,8 +1,8 @@
 import React from "react";
-import Navbar from "./Components/Organism/Navbar";
+import { Default } from "./views";
 
 function App() {
-    return <Navbar />;
+    return <Default />;
 }
 
 export default App;

@@ -5,13 +5,16 @@ type Props = {
     textValue: string;
     placeholder: string;
     onChange: (data: string) => void;
+    isValid: boolean | undefined;
 };
 
-function InputText({ textValue, placeholder, onChange }: Props) {
+function InputText({ textValue, placeholder, onChange, isValid }: Props) {
     return (
         <Form.Control
             size="lg"
             type="text"
+            isValid={isValid}
+            isInvalid={!isValid}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
             value={textValue}
