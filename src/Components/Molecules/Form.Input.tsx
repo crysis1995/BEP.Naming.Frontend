@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { LayerWithInputOptions } from "../../redux/Layers/FetchAllLayers.query";
+import React, { useState } from "react";
+import { LayerWithInputOptions } from "../../redux/Generator/FetchAllLayers.query";
 import Label from "../Atoms/Label";
 import InputText from "../Atoms/Input.Text";
 import ValidatorText from "../Atoms/Validator.Text";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/rootReducer";
-import { actions as LayerActions } from "../../redux/Layers";
+import { actions as GeneratorActions } from "../../redux/Generator";
 
 type Props = {
     layer: LayerWithInputOptions;
@@ -16,35 +16,30 @@ function FormInput(props: Props) {
     const dispatch = useDispatch();
     const layerValue = useSelector(
         (state: RootState) =>
-            state.layers.layersOrder.find(
+            state.generator.layersOrder.find(
                 (x) => x[0] === props.layer.id
-            )?.[1] || ""
+            )?.[1]
     );
-    const [inputValue, setInputValue] = useState(layerValue);
 
+    // const [inputValue, setInputValue] = useState<string | undefined>(
+    //     props.layer.options[0].default || layerValue
+    // );
     const [validatyStatus, setValidatyStatus] = useState<boolean | undefined>(
-        undefined
+        CheckIsValueIsValid(layerValue)
     );
-    // const [validatyMessage, setValidatyMessage] = useState("Ni");
-
-    useEffect(() => {
-        if (validatyStatus) {
-            dispatch(
-                LayerActions.SelectValuesOfLayer({
-                    value: inputValue,
-                    levelID: props.layer.id,
-                })
-            );
-        }
-        console.log(validatyStatus, inputValue);
-    }, [validatyStatus, inputValue]);
 
     function HandleChangeValue(data: string) {
-        setInputValue(data);
+        dispatch(
+            GeneratorActions.SelectValuesOfLayer({
+                value: data,
+                levelID: props.layer.id,
+            })
+        );
         setValidatyStatus(CheckIsValueIsValid(data));
     }
 
-    function CheckIsValueIsValid(data: string) {
+    function CheckIsValueIsValid(data: string | undefined) {
+        if (data === undefined) return props.layer.isOptional;
         const regex = props.layer.options[0].regex;
         if (regex) return new RegExp(regex).test(data);
     }
@@ -54,7 +49,8 @@ function FormInput(props: Props) {
             <Label message={props.layer.description} index={props.index + 1} />
             <InputText
                 isValid={validatyStatus}
-                textValue={inputValue}
+                defaultValue={props.layer.options[0].default || ""}
+                textValue={layerValue || ""}
                 placeholder={props.layer.options[0].placeholder || ""}
                 onChange={HandleChangeValue}
             />

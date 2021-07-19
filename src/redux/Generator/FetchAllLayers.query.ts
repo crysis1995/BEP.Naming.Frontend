@@ -12,6 +12,7 @@ export const FetchAllLayersQuery = gql`
             }
             description
             isMain
+            isOptional
             options {
                 ... on ComponentInputsSelect {
                     id
@@ -56,6 +57,7 @@ export interface LayerBase {
     }[];
     description: string;
     isMain: boolean;
+    isOptional: boolean;
 }
 
 export interface ComponentInputsSelect {

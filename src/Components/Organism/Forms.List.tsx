@@ -7,7 +7,7 @@ import { Col } from "react-bootstrap";
 type Props = {};
 function FormsList(props: Props) {
     const layersOrder = useSelector(
-        (state: RootState) => state.layers.layersOrder
+        (state: RootState) => state.generator.layersOrder
     );
 
     return (

@@ -7,7 +7,6 @@ type Props = {
 };
 
 function Label(props: Props) {
-    console.log(props.index);
     return (
         <Form.Label>
             <strong className={"text-muted mr-1"}>

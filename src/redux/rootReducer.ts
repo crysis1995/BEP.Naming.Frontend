@@ -1,10 +1,6 @@
-import { combineReducers } from "redux";
-import { reducer as layers } from "./Layers";
-import { reducer as nodeSelects } from "./Node.Selects";
+import {combineReducers} from "redux";
+import {reducer as generator} from "./Generator"
 
-const rootReducer = combineReducers({
-    layers,
-    nodeSelects,
-});
+const rootReducer = combineReducers({ generator });
 export type RootState = ReturnType<typeof rootReducer>;
 export default rootReducer;

@@ -5,7 +5,7 @@ import FormSelect from "./Form.Select";
 import {
     LayerWithInputOptions,
     LayerWithSelectOptions,
-} from "../../redux/Layers/FetchAllLayers.query";
+} from "../../redux/Generator/FetchAllLayers.query";
 import FormInput from "./Form.Input";
 
 type Props = {
@@ -14,9 +14,8 @@ type Props = {
 };
 
 function FormCollector(props: Props) {
-    console.log(props.index);
     const layer = useSelector(
-        (state: RootState) => state.layers.entities?.[props.layerID]
+        (state: RootState) => state.generator.layersEntities?.[props.layerID]
     );
     if (layer?.options && layer?.options?.length > 0) {
         if (layer.options[0].__typename === "ComponentInputsSelect") {

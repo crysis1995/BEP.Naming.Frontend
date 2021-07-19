@@ -2,9 +2,8 @@ import React, { useEffect } from "react";
 import Navbar from "../Components/Templates/Navbar";
 import { Col, Container, Row } from "react-bootstrap";
 import { batch, useDispatch } from "react-redux";
-import { fetchAllLayers } from "../redux/Layers";
+import { fetchAllLayers, fetchAllNodeSelects } from "../redux/Generator";
 import GeneratorSection from "../Components/Templates/Generator.Section";
-import { fetchAllNodeSelects } from "../redux/Node.Selects";
 
 function DefaultView() {
     const dispatch = useDispatch();
